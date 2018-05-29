@@ -144,7 +144,7 @@ PUTCHAR_PROTOTYPE
                
                for(i=0; i<30; i++) {
                            Motor_Stop();
-                           osDelay(100); // 여기 딜레이를 낮추면 좀더 부드럽게 돌 수 있다.
+                           osDelay(15); // 여기 딜레이를 낮추면 좀더 부드럽게 돌 수 있다.
 								 
                            motorInterrupt1 = 1;		// 바퀴 회전 값 초기화
                            Motor_Left();
@@ -169,7 +169,7 @@ void Detect_obstacle(){
 	for(;;)
     {
 						osDelay(500);
-            if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 <10  )
+            if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 20  )
             {         
                   result = 1;
                      printf("\r\n result = %d", result);
@@ -194,8 +194,8 @@ void Motor_control(){
 						{
 							Motor_Stop();
 						  turnLeft();
+							// osDelay(2000); // 돌고난 후에 2초간 딜레이를 줌으로써 turn 확인해봄(나중에 지움)
 						  Motor_Stop();
-							osDelay(2000); // 돌고난 후에 2초간 딜레이를 줌으로써 turn 확인해봄(나중에 지움)
 						}
 
 
@@ -284,7 +284,7 @@ int main(void)
    sConfig2.OCMode     = TIM_OCMODE_PWM1;
    sConfig2.OCPolarity = TIM_OCPOLARITY_HIGH;
    sConfig2.OCFastMode = TIM_OCFAST_DISABLE;
-   sConfig2.Pulse = 20000;
+   sConfig2.Pulse = 19150;
    
    TimHandle2.Instance = TIM4; 
    TimHandle2.Init.Prescaler     = uwPrescalerValue;
