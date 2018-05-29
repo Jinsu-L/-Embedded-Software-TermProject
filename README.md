@@ -1,1 +1,1 @@
-# -Embedded-Software-TermProject
+# [Embedded]Software TermProject
