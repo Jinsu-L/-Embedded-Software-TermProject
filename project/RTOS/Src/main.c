@@ -212,14 +212,12 @@ void Detect_obstacle(){
 	for(;;)
     {
 						osDelay(200);
+						printf("\r\n%d", uwDiffCapture2/58);
             if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 20  )
             {         
                   Where_should_I_go();   
             }
-            else
-            {
-                  Where_should_I_go();
-            }
+            
     }
 }
 
