@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\output\PWM(Motor).axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\output\PWM(Motor).axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed May 30 22:17:38 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed May 30 23:36:01 2018
 <BR><P>
 <H3>Maximum Stack Usage =        264 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1032,14 +1032,13 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429xx.o(RESET)
 </UL>
-<P><STRONG><a name="[69]"></a>IR_Sensor</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, main.o(i.IR_Sensor))
+<P><STRONG><a name="[69]"></a>IR_Sensor</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, main.o(i.IR_Sensor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = IR_Sensor &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_GetValue
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
@@ -1063,7 +1062,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_Start
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
+<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
 </UL>
 
 <P><STRONG><a name="[c3]"></a>Motor_Right</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, main.o(i.Motor_Right))
@@ -1071,7 +1070,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_Start
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
 </UL>
 
 <P><STRONG><a name="[c4]"></a>Motor_Stop</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, main.o(i.Motor_Stop))
@@ -1079,17 +1078,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_Stop
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_control
 </UL>
 
-<P><STRONG><a name="[6a]"></a>Motor_control</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, main.o(i.Motor_control))
+<P><STRONG><a name="[6a]"></a>Motor_control</STRONG> (Thumb, 106 bytes, Stack size 0 bytes, main.o(i.Motor_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = Motor_control &rArr; turnRight &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Stop
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Forward
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -1166,7 +1165,6 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_control
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IR_Sensor
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detect_obstacle
 </UL>
 
@@ -1215,8 +1213,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_control
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IR_Sensor
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detect_obstacle
@@ -1240,7 +1238,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 
-<P><STRONG><a name="[c6]"></a>turnLeft</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, main.o(i.turnLeft))
+<P><STRONG><a name="[c5]"></a>turnLeft</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(i.turnLeft))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = turnLeft &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -1251,7 +1249,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_control
 </UL>
 
-<P><STRONG><a name="[c5]"></a>turnRight</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, main.o(i.turnRight))
+<P><STRONG><a name="[c6]"></a>turnRight</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(i.turnRight))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = turnRight &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -1400,8 +1398,8 @@ Global Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnRight
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLeft
 </UL>
 
 <P><STRONG><a name="[f2]"></a>vTaskMissedYield</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, tasks.o(i.vTaskMissedYield))

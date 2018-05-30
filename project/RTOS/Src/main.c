@@ -63,6 +63,9 @@
 #define  RIGHT        1
 #define  BACK         2
 
+#define LeftIR          5
+#define RightIR       6
+
 #define True 1
 #define False 0
 
@@ -170,7 +173,7 @@ PUTCHAR_PROTOTYPE
  
 
  //오른쪽으로 90도 돌기위한 함수
- void turnRight(int value, int flage){
+ void turnRight(int value, int flag){
 							Motor_Stop();
 							osDelay(100);
 	 
@@ -263,6 +266,18 @@ void Motor_control(){
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
+						}else if(result == LeftIR) {
+													Motor_Stop();
+						 							turnRight(150,False);
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();
+						}else if(result == RightIR) {
+													Motor_Stop();
+						 							turnLeft(150,False);
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();	
 						}
 
     }
@@ -279,18 +294,19 @@ void IR_Sensor(){
       if(uhADCxLeft >2000) uhADCxLeft= 2000;
       else if(uhADCxLeft<100) uhADCxLeft = 100;
       //printf("\r\nIR sensor Left = %d", uhADCxLeft);
-		 if(uhADCxLeft<=1000){
-			 turnRight(435,False);
-		 }
 		 
-      HAL_ADC_Start(&AdcHandle2);
+		  HAL_ADC_Start(&AdcHandle2);
       uhADCxRight = HAL_ADC_GetValue(&AdcHandle2);
       HAL_ADC_PollForConversion(&AdcHandle2, 0xFF);
       if(uhADCxRight >2000) uhADCxRight= 2000;
       else if(uhADCxRight<100) uhADCxRight = 100;
       //printf("\r\nIR sensor Right = %d", uhADCxRight);
-      if(uhADCxRight<=1000){
-			 turnLeft(435,False);
+		 
+		 
+		 if(uhADCxLeft >= 1100){
+			 										result = LeftIR;
+		 } else if(uhADCxRight >= 1100){
+			 										result = RightIR;
 		 }
        osDelay(10);
    }
