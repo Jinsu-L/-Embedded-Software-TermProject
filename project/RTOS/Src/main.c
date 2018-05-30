@@ -63,6 +63,9 @@
 #define  RIGHT        1
 #define  BACK         2
 
+#define True 1
+#define False 0
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 uint32_t               direction = FRONT; /* uBrain Position */
@@ -149,34 +152,38 @@ PUTCHAR_PROTOTYPE
 
 
  //왼쪽으로 90도 돌기위한 함수
- void turnLeft(){
+ void turnLeft(int value, int flag){
 							Motor_Stop();
 							osDelay(100);
 	 
 							Motor_Left();
-	            for(motorInterrupt1 = 1; motorInterrupt1 < 870;){
+	            for(motorInterrupt1 = 1; motorInterrupt1 < value;){
 													vTaskDelay(1/portTICK_RATE_MS);
 							}
 	 
 							Motor_Stop();
 							osDelay(100);
-							direction = (direction + 3) % 4;
+							if(flag){
+								direction = (direction + 3) % 4;
+							}
 }
  
 
  //오른쪽으로 90도 돌기위한 함수
- void turnRight(){
+ void turnRight(int value, int flage){
 							Motor_Stop();
 							osDelay(100);
 	 
 							Motor_Right();
-	            for(motorInterrupt2 = 1; motorInterrupt2 < 930;){
+	            for(motorInterrupt2 = 1; motorInterrupt2 < value;){
 													vTaskDelay(1/portTICK_RATE_MS);
 							}
 	 
 							Motor_Stop();
 							osDelay(100);
-							direction = (direction + 1) % 4;
+							if(flag){
+								direction = (direction + 1) % 4;
+							}
 }
  
 /*               for(i=0; i<30; i++) {
@@ -246,13 +253,13 @@ void Motor_control(){
     {
             if(result == LEFT) {
 													Motor_Stop();
-						 							turnLeft();
+						 							turnLeft(870,True);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
 						}else if(result == RIGHT) {
 													Motor_Stop();
-						 							turnRight();
+						 							turnRight(930,True);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
@@ -271,15 +278,20 @@ void IR_Sensor(){
       HAL_ADC_PollForConversion(&AdcHandle1, 0xFF);   
       if(uhADCxLeft >2000) uhADCxLeft= 2000;
       else if(uhADCxLeft<100) uhADCxLeft = 100;
-      printf("\r\nIR sensor Left = %d", uhADCxLeft);
-      
+      //printf("\r\nIR sensor Left = %d", uhADCxLeft);
+		 if(uhADCxLeft<=1000){
+			 turnRight(435,False);
+		 }
+		 
       HAL_ADC_Start(&AdcHandle2);
       uhADCxRight = HAL_ADC_GetValue(&AdcHandle2);
       HAL_ADC_PollForConversion(&AdcHandle2, 0xFF);
       if(uhADCxRight >2000) uhADCxRight= 2000;
       else if(uhADCxRight<100) uhADCxRight = 100;
-      printf("\r\nIR sensor Right = %d", uhADCxRight);
-      
+      //printf("\r\nIR sensor Right = %d", uhADCxRight);
+      if(uhADCxRight<=1000){
+			 turnLeft(435,False);
+		 }
        osDelay(10);
    }
    
