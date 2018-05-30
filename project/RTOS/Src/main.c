@@ -58,10 +58,10 @@
 
 /* Private define ------------------------------------------------------------*/
 // uBrain Position Values
-#define  FRONT       1
-#define  LEFT          2
-#define  RIGHT        3
-#define  BACK         4
+#define  FRONT       0
+#define  LEFT          3
+#define  RIGHT        1
+#define  BACK         2
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -160,6 +160,7 @@ PUTCHAR_PROTOTYPE
 	 
 							Motor_Stop();
 							osDelay(100);
+							direction = (direction + 3) % 4;
 }
  
 
@@ -175,6 +176,7 @@ PUTCHAR_PROTOTYPE
 	 
 							Motor_Stop();
 							osDelay(100);
+							direction = (direction + 1) % 4;
 }
  
 /*               for(i=0; i<30; i++) {
@@ -192,6 +194,20 @@ PUTCHAR_PROTOTYPE
 
 void Where_should_I_go(){
 							if (direction == FRONT){
+														if((uwDiffCapture1/58) > (uwDiffCapture3/58)) {
+																					result = RIGHT;
+																					return;
+														} else {
+																					result = LEFT;
+																					return;
+														}
+							}else if(direction == RIGHT){
+														result = LEFT;
+														return;
+							}else if(direction == LEFT){
+														result = RIGHT;
+														return;
+							}else if(direction == BACK) {
 														if((uwDiffCapture1/58) > (uwDiffCapture3/58)) {
 																					result = RIGHT;
 																					return;

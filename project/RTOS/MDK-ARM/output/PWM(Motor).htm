@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\output\PWM(Motor).axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\output\PWM(Motor).axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed May 30 21:41:34 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed May 30 22:17:38 2018
 <BR><P>
 <H3>Maximum Stack Usage =        264 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1150,8 +1150,10 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429xx.o(RESET)
 </UL>
-<P><STRONG><a name="[8b]"></a>Where_should_I_go</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, main.o(i.Where_should_I_go))
-<BR><BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detect_obstacle
+<P><STRONG><a name="[8b]"></a>Where_should_I_go</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, main.o(i.Where_should_I_go))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Where_should_I_go
+</UL>
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Detect_obstacle
 </UL>
 
 <P><STRONG><a name="[c9]"></a>__0printf</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
@@ -1238,7 +1240,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 
-<P><STRONG><a name="[c6]"></a>turnLeft</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, main.o(i.turnLeft))
+<P><STRONG><a name="[c6]"></a>turnLeft</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, main.o(i.turnLeft))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = turnLeft &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -1249,7 +1251,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_control
 </UL>
 
-<P><STRONG><a name="[c5]"></a>turnRight</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, main.o(i.turnRight))
+<P><STRONG><a name="[c5]"></a>turnRight</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, main.o(i.turnRight))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = turnRight &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
