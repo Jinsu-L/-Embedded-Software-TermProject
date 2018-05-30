@@ -155,6 +155,26 @@ PUTCHAR_PROTOTYPE
                            Motor_Stop();
                 }
 }
+ 
+
+ //오른쪽으로 90도 돌기위한 함수
+ void turnRight(){
+               int i;
+               
+               for(i=0; i<30; i++) {
+                           Motor_Stop();
+                           osDelay(15); // 여기 딜레이를 낮추면 좀더 부드럽게 돌 수 있다.
+								 
+                           motorInterrupt2 = 1;		// 바퀴 회전 값 초기화
+                           Motor_Right();
+                                                
+                           while(motorInterrupt2 < 30) { 										// 1회 회전시 바퀴 회전수 30만큼 회전 (약 3도)
+                                    vTaskDelay(1/portTICK_RATE_MS);  // motorInterrupt1 값을 읽어오기 위한 딜레이
+                           }
+                           Motor_Stop();
+                }
+}
+ 
 
 
 
@@ -193,8 +213,7 @@ void Motor_control(){
             if(result == 1)
 						{
 							Motor_Stop();
-						  turnLeft();
-							// osDelay(2000); // 돌고난 후에 2초간 딜레이를 줌으로써 turn 확인해봄(나중에 지움)
+						  turnRight();
 						  Motor_Stop();
 						}
 
@@ -622,6 +641,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 																}
 																break;
 								}
+								
+//								printf("\r\nmotorInterrupt1 : %d", motorInterrupt1);
+//								printf("\r\nmotorInterrupt2 : %d", motorInterrupt2);
 }
  
  
