@@ -57,8 +57,18 @@
 #define  PULSE4_VALUE       450         /* Capture Compare 4 Value  */
 
 /* Private define ------------------------------------------------------------*/
+// uBrain Position Values
+#define  FRONT       1
+#define  LEFT          2
+#define  RIGHT        3
+#define  BACK         4
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+uint32_t               direction = FRONT; /* uBrain Position */
+uint32_t               result      = FRONT; 
+uint32_t               forward   = 0;
+
 /* Timer handler declaration */
 TIM_HandleTypeDef    TimHandle1, TimHandle2, TimHandle3, TimHandle4;
 TIM_IC_InitTypeDef     sICConfig;
@@ -140,28 +150,34 @@ PUTCHAR_PROTOTYPE
 
  //왼쪽으로 90도 돌기위한 함수
  void turnLeft(){
-               int i;
-               
-               for(i=0; i<30; i++) {
-                           Motor_Stop();
-                           osDelay(15); // 여기 딜레이를 낮추면 좀더 부드럽게 돌 수 있다.
-								 
-                           motorInterrupt1 = 1;		// 바퀴 회전 값 초기화
-                           Motor_Left();
-                                                
-                           while(motorInterrupt1 < 30) { 										// 1회 회전시 바퀴 회전수 30만큼 회전 (약 3도)
-                                    vTaskDelay(1/portTICK_RATE_MS);  // motorInterrupt1 값을 읽어오기 위한 딜레이
-                           }
-                           Motor_Stop();
-                }
+							Motor_Stop();
+							osDelay(100);
+	 
+							Motor_Left();
+	            for(motorInterrupt1 = 1; motorInterrupt1 < 870;){
+													vTaskDelay(1/portTICK_RATE_MS);
+							}
+	 
+							Motor_Stop();
+							osDelay(100);
 }
  
 
  //오른쪽으로 90도 돌기위한 함수
  void turnRight(){
-               int i;
-               
-               for(i=0; i<30; i++) {
+							Motor_Stop();
+							osDelay(100);
+	 
+							Motor_Right();
+	            for(motorInterrupt2 = 1; motorInterrupt2 < 930;){
+													vTaskDelay(1/portTICK_RATE_MS);
+							}
+	 
+							Motor_Stop();
+							osDelay(100);
+}
+ 
+/*               for(i=0; i<30; i++) {
                            Motor_Stop();
                            osDelay(15); // 여기 딜레이를 낮추면 좀더 부드럽게 돌 수 있다.
 								 
@@ -171,34 +187,38 @@ PUTCHAR_PROTOTYPE
                            while(motorInterrupt2 < 30) { 										// 1회 회전시 바퀴 회전수 30만큼 회전 (약 3도)
                                     vTaskDelay(1/portTICK_RATE_MS);  // motorInterrupt1 값을 읽어오기 위한 딜레이
                            }
-                           Motor_Stop();
-                }
-}
+                } */
  
 
+void Where_should_I_go(){
+							if (direction == FRONT){
+														if((uwDiffCapture1/58) > (uwDiffCapture3/58)) {
+																					result = RIGHT;
+																					return;
+														} else {
+																					result = LEFT;
+																					return;
+														}
+							}
+}
 
 
 /*********************************  task ************************************/
-uint32_t result = 0;
-uint32_t forward = 0;
 
 void Detect_obstacle(){
-  osDelay(200);  // 태스크 만든 후 약간의 딜레이
+  osDelay(500);  // 태스크 만든 후 약간의 딜레이
 	printf("\r\n Detect_obstacle");
 
 	for(;;)
     {
-						osDelay(500);
+						osDelay(200);
             if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 20  )
             {         
-                  result = 1;
-                     printf("\r\n result = %d", result);
-                     
+                  Where_should_I_go();   
             }
             else
             {
-                  result = 0;
-                     printf("\r\n result = %d", result);
+                  Where_should_I_go();
             }
     }
 }
@@ -210,14 +230,19 @@ void Motor_control(){
 	
    for(;;)
     {
-            if(result == 1)
-						{
-							Motor_Stop();
-						  turnRight();
-						  Motor_Stop();
+            if(result == LEFT) {
+													Motor_Stop();
+						 							turnLeft();
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();
+						}else if(result == RIGHT) {
+													Motor_Stop();
+						 							turnRight();
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();	
 						}
-
-
 
     }
    
@@ -303,7 +328,7 @@ int main(void)
    sConfig2.OCMode     = TIM_OCMODE_PWM1;
    sConfig2.OCPolarity = TIM_OCPOLARITY_HIGH;
    sConfig2.OCFastMode = TIM_OCFAST_DISABLE;
-   sConfig2.Pulse = 19150;
+   sConfig2.Pulse = 19130;
    
    TimHandle2.Instance = TIM4; 
    TimHandle2.Init.Prescaler     = uwPrescalerValue;
