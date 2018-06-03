@@ -169,7 +169,7 @@ PUTCHAR_PROTOTYPE
 							osDelay(100);
 							direction = (direction + 2) % 4;
 }
- //왼쪽으로 90도 돌기위한 함수
+ //왼쪽으로 돌기위한 함수
  void turnLeft(int value, int flag){
 							Motor_Stop();
 							osDelay(100);
@@ -187,7 +187,7 @@ PUTCHAR_PROTOTYPE
 }
  
 
- //오른쪽으로 90도 돌기위한 함수
+ //오른쪽으로 돌기위한 함수
  void turnRight(int value, int flag){
 							Motor_Stop();
 							osDelay(100);
@@ -203,79 +203,56 @@ PUTCHAR_PROTOTYPE
 								direction = (direction + 1) % 4;
 							}
 }
- 
-/*               for(i=0; i<30; i++) {
-                           Motor_Stop();
-                           osDelay(15); // 여기 딜레이를 낮추면 좀더 부드럽게 돌 수 있다.
-								 
-                           motorInterrupt2 = 1;		// 바퀴 회전 값 초기화
-                           Motor_Right();
-                                                
-                           while(motorInterrupt2 < 30) { 										// 1회 회전시 바퀴 회전수 30만큼 회전 (약 3도)
-                                    vTaskDelay(1/portTICK_RATE_MS);  // motorInterrupt1 값을 읽어오기 위한 딜레이
-                           }
-                } */
- 
-
-void Where_should_I_go(){
-							if (direction == FRONT){
-														if((uwDiffCapture1/58) > (uwDiffCapture3/58)) {
-																					result = RIGHT;
-																					return;
-														} else {
-																					result = LEFT;
-																					return;
-														}
-							}else if(direction == RIGHT){
-												if(uwDiffCapture1/58 <30){
-														result = LEFT;
-														return;
-												}
-												if(uwDiffCapture3/58 <30){
-													result=RIGHT;
-													return;
-												}
-							}else if(direction == LEFT){
-														if(uwDiffCapture1/58 <30){
-														result = LEFT;
-														return;
-												}
-												if(uwDiffCapture3/58 <30){
-													result=RIGHT;
-													return;
-												}
-							}/*else if(direction == BACK) {
-														if((uwDiffCapture1/58) > (uwDiffCapture3/58)) {
-																					result = RIGHT;
-																					return;
-														} else {
-																					result = LEFT;
-																					return;
-														}
-							}*/
-}
 
 
 /*********************************  task ************************************/
 
-void Detect_obstacle(){
+void Side_Detect_obstacle(){
   osDelay(500);  // 태스크 만든 후 약간의 딜레이
 	printf("\r\n Detect_obstacle");
 
 	for(;;)
     {
 						osDelay(100);
-						printf("\r\n%d", uwDiffCapture2/58);
-            if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 15  )
-            {         
-                  Where_should_I_go();   
-            }
-						if( uwDiffCapture1/58 > 0 && uwDiffCapture1/58 <3){
+           if( uwDiffCapture1/58 > 0 && uwDiffCapture1/58 <3){
 							result=RightS;
 						}
 						else if( uwDiffCapture3/58 > 0 && uwDiffCapture3/58 <3){
 							result=LeftS;
 						}
+    }
+}
+void Front_Detect_obstacle(){
+  osDelay(500);  // 태스크 만든 후 약간의 딜레이
+	printf("\r\n Detect_obstacle");
+
+	for(;;)
+    {
+						osDelay(100);
+            if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 15  )
+            {         
+                  if(uwDiffCapture1/58 <20 && uwDiffCapture3/58 <20){
+										result=BACK;
+										BSP_LED_On(LED3);
+										for(;;){
+											if(uwDiffCapture1/58 >20){
+												osDelay(100);
+												result=RIGHT;
+												break;
+										}else if(uwDiffCapture3/58 >20){
+											osDelay(100);
+											result=LEFT;
+											break;
+										}
+									}
+									}else if(uwDiffCapture1/58 <20){
+										result=LEFT;
+									}else if(uwDiffCapture3/58 <20){
+										result=RIGHT;
+									}else{
+										result=(direction+2)%4;
+									}
+            }
     }
 }
 
@@ -322,6 +299,12 @@ void Motor_control(){
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
+						}else if(result==BACK){
+													Motor_Stop();
+						 							Return();
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();	
 						}
 
     }
@@ -361,6 +344,7 @@ void IR_Sensor(){
 /***************************************************************************/
 int main(void)
 {
+	BSP_LED_On(LED1);
    GPIO_InitTypeDef  GPIO_InitStruct;
    
    /* STM32F4xx HAL library initialization:
@@ -567,7 +551,8 @@ int main(void)
 		 
 	 /**********여기에 Task 를 생성하시오********/
 	 /*******학번 : 201203391  , 이름 : 임진수	 *******/
-	 xTaskCreate( Detect_obstacle, "obstacle", 1000, NULL, 2, NULL);
+	 xTaskCreate( Front_Detect_obstacle, "Front_obstacle", 1000, NULL, 2, NULL);
+	 xTaskCreate( Side_Detect_obstacle, "Side_obstacle", 1000, NULL, 2, NULL);
 	 xTaskCreate( IR_Sensor, "IR", 1000, NULL, 2, NULL);
 	 xTaskCreate( Motor_control, "motor", 1000, NULL, 2, NULL);
 
