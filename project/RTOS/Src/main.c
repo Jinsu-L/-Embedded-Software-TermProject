@@ -66,6 +66,9 @@
 #define LeftIR          5
 #define RightIR       6
 
+#define LeftS					7
+#define RightS				8
+
 #define True 1
 #define False 0
 
@@ -154,6 +157,18 @@ PUTCHAR_PROTOTYPE
   */
 
 
+ void Return(){
+							Motor_Stop();
+							osDelay(100);
+	 
+							Motor_Right();
+	            for(motorInterrupt2 = 1; motorInterrupt2 < 1830;){
+													vTaskDelay(1/portTICK_RATE_MS);
+							}
+							Motor_Stop();
+							osDelay(100);
+							direction = (direction + 2) % 4;
+}
  //왼쪽으로 90도 돌기위한 함수
  void turnLeft(int value, int flag){
 							Motor_Stop();
@@ -212,12 +227,24 @@ void Where_should_I_go(){
 																					return;
 														}
 							}else if(direction == RIGHT){
+												if(uwDiffCapture1/58 <30){
 														result = LEFT;
 														return;
+												}
+												if(uwDiffCapture3/58 <30){
+													result=RIGHT;
+													return;
+												}
 							}else if(direction == LEFT){
-														result = RIGHT;
+														if(uwDiffCapture1/58 <30){
+														result = LEFT;
 														return;
-							}else if(direction == BACK) {
+												}
+												if(uwDiffCapture3/58 <30){
+													result=RIGHT;
+													return;
+												}
+							}/*else if(direction == BACK) {
 														if((uwDiffCapture1/58) > (uwDiffCapture3/58)) {
 																					result = RIGHT;
 																					return;
@@ -225,7 +252,7 @@ void Where_should_I_go(){
 																					result = LEFT;
 																					return;
 														}
-							}
+							}*/
 }
 
 
@@ -237,13 +264,18 @@ void Detect_obstacle(){
 
 	for(;;)
     {
-						osDelay(200);
+						osDelay(100);
 						printf("\r\n%d", uwDiffCapture2/58);
-            if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 20  )
+            if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 15  )
             {         
                   Where_should_I_go();   
             }
-            
+						if( uwDiffCapture1/58 > 0 && uwDiffCapture1/58 <3){
+							result=RightS;
+						}
+						else if( uwDiffCapture3/58 > 0 && uwDiffCapture3/58 <3){
+							result=LeftS;
+						}
     }
 }
 
@@ -268,13 +300,25 @@ void Motor_control(){
 													Motor_Forward();	
 						}else if(result == LeftIR) {
 													Motor_Stop();
-						 							turnRight(150,False);
+						 							turnRight(174,False);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
 						}else if(result == RightIR) {
 													Motor_Stop();
-						 							turnLeft(150,False);
+						 							turnLeft(186,False);
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();	
+						}else if(result ==LeftS){
+													Motor_Stop();
+						 							turnRight(146,False);
+						 							Motor_Stop();
+													result =FRONT;
+													Motor_Forward();
+						}else if(result == RightS) {
+													Motor_Stop();
+						 							turnLeft(154,False);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
@@ -303,9 +347,9 @@ void IR_Sensor(){
       //printf("\r\nIR sensor Right = %d", uhADCxRight);
 		 
 		 
-		 if(uhADCxLeft >= 1100){
+		 if(uhADCxLeft >= 980){
 			 										result = LeftIR;
-		 } else if(uhADCxRight >= 1100){
+		 } else if(uhADCxRight >= 980){
 			 										result = RightIR;
 		 }
        osDelay(10);
@@ -523,7 +567,6 @@ int main(void)
 		 
 	 /**********여기에 Task 를 생성하시오********/
 	 /*******학번 : 201203391  , 이름 : 임진수	 *******/
-	 
 	 xTaskCreate( Detect_obstacle, "obstacle", 1000, NULL, 2, NULL);
 	 xTaskCreate( IR_Sensor, "IR", 1000, NULL, 2, NULL);
 	 xTaskCreate( Motor_control, "motor", 1000, NULL, 2, NULL);
