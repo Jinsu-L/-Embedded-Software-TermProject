@@ -343,7 +343,7 @@ void IR_Sensor(){
 		 
 		 if(uhADCxLeft >= 950){
 			 										result = LeftIR;
-		 } else if(uhADCxRight >= 9500){
+		 } else if(uhADCxRight >= 950){
 			 										result = RightIR;
 		 }
        osDelay(10);
