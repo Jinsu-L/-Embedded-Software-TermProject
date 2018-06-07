@@ -305,13 +305,13 @@ void Motor_control(){
 												Motor_Forward();	
 					}else if(result ==LeftS){
 												Motor_Stop();
-												turnRight(145,False);
+												turnRight(174,False);
 												Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
 						}else if(result == RightS) {
 													Motor_Stop();
-						 							turnLeft(155,False);
+						 							turnLeft(186,False);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
