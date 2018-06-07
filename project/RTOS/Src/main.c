@@ -76,7 +76,7 @@
 /* Private variables ---------------------------------------------------------*/
 uint32_t               direction = FRONT; /* uBrain Position */
 uint32_t               result      = FRONT; 
-uint32_t               forward   = 0;
+uint32_t               forward   = 1;
 
 /* Timer handler declaration */
 TIM_HandleTypeDef    TimHandle1, TimHandle2, TimHandle3, TimHandle4;
@@ -191,7 +191,6 @@ PUTCHAR_PROTOTYPE
  void turnRight(int value, int flag){
 							Motor_Stop();
 							osDelay(100);
-	 
 							Motor_Right();
 	            for(motorInterrupt2 = 1; motorInterrupt2 < value;){
 													vTaskDelay(1/portTICK_RATE_MS);
@@ -213,12 +212,24 @@ void Side_Detect_obstacle(){
 
 	for(;;)
     {
+			//printf("\r\nRight : %d",uwDiffCapture1/58);
+			//printf("\r\nLeft : %d",uwDiffCapture3/58);
 						osDelay(100);
            if( uwDiffCapture1/58 > 0 && uwDiffCapture1/58 <3){
 							result=RightS;
 						}
 						else if( uwDiffCapture3/58 > 0 && uwDiffCapture3/58 <3){
 							result=LeftS;
+						}else if(uwDiffCapture1/58 >30 && forward==0){
+							osDelay(450);
+							result=RIGHT;
+							forward=1;
+							//printf("\r\n%d",forward);
+						}else if(uwDiffCapture3/58 >30 && forward==0){
+							osDelay(450);
+							result=LEFT;
+							forward=1;
+							//printf("\r\n%d",forward);
 						}
     }
 }
@@ -230,32 +241,31 @@ void Front_Detect_obstacle(){
     {
 						osDelay(100);
             if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 15  )
-            {         
-                  if(uwDiffCapture1/58 <20 && uwDiffCapture3/58 <20){
+            {
+                  if(uwDiffCapture1/58 < 30 && uwDiffCapture3/58 < 30){
 										result=BACK;
-										BSP_LED_On(LED3);
-										for(;;){
-											if(uwDiffCapture1/58 >20){
-												osDelay(100);
-												result=RIGHT;
-												break;
-										}else if(uwDiffCapture3/58 >20){
-											osDelay(100);
+									}else if(direction==RIGHT){
+										if(uwDiffCapture1/58 <30){
+											result=RIGHT;
+											forward=0;
+										}else{
 											result=LEFT;
-											break;
+										}
+										}else if(direction==LEFT){
+											if(uwDiffCapture3/58 <30){
+											result=LEFT;
+											forward=0;
+										}else{
+											result=RIGHT;
+										}
+										}else if(uwDiffCapture1/58>=uwDiffCapture3/58){
+											result=RIGHT;
+										}else if(uwDiffCapture3/58>=uwDiffCapture1/58){
+											result=LEFT;
 										}
 									}
-									}else if(uwDiffCapture1/58 <20){
-										result=LEFT;
-									}else if(uwDiffCapture3/58 <20){
-										result=RIGHT;
-									}else{
-										result=(direction+2)%4;
-									}
             }
-    }
 }
-
 void Motor_control(){
 	osDelay(200);  // 태스크 만든 후 약간의 딜레이
 	printf("\r\n Motor_control");
@@ -304,7 +314,9 @@ void Motor_control(){
 						 							Return();
 						 							Motor_Stop();
 													result =FRONT;
-													Motor_Forward();	
+													Motor_Forward();
+													forward=0;
+													//printf("%d\n",forward);
 						}
 
     }
@@ -314,7 +326,6 @@ void Motor_control(){
 /*적외선 태스크 부분 - 나중에 사용(선택) */
 void IR_Sensor(){
    for(;;){
-      
       HAL_ADC_Start(&AdcHandle1);
       uhADCxLeft = HAL_ADC_GetValue(&AdcHandle1);
       HAL_ADC_PollForConversion(&AdcHandle1, 0xFF);   
@@ -330,9 +341,9 @@ void IR_Sensor(){
       //printf("\r\nIR sensor Right = %d", uhADCxRight);
 		 
 		 
-		 if(uhADCxLeft >= 980){
+		 if(uhADCxLeft >= 1000){
 			 										result = LeftIR;
-		 } else if(uhADCxRight >= 980){
+		 } else if(uhADCxRight >= 1000){
 			 										result = RightIR;
 		 }
        osDelay(10);
