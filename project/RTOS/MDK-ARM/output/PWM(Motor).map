@@ -664,7 +664,7 @@ Section Cross References
     main.o(i.Motor_control) refers to main.o(.data) for .data
     main.o(i.Return) refers to main.o(i.Motor_Stop) for Motor_Stop
     main.o(i.Return) refers to cmsis_os.o(i.osDelay) for osDelay
-    main.o(i.Return) refers to main.o(i.Motor_Right) for Motor_Right
+    main.o(i.Return) refers to main.o(i.Motor_Left) for Motor_Left
     main.o(i.Return) refers to tasks.o(i.vTaskDelay) for vTaskDelay
     main.o(i.Return) refers to main.o(.data) for .data
     main.o(i.Side_Detect_obstacle) refers to cmsis_os.o(i.osDelay) for osDelay

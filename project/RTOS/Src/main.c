@@ -162,8 +162,8 @@ PUTCHAR_PROTOTYPE
 							Motor_Stop();
 							osDelay(100);
 	 
-							Motor_Right();
-	            for(motorInterrupt2 = 1; motorInterrupt2 < 1830;){
+							Motor_Left();
+	            for(motorInterrupt2 = 1; motorInterrupt2 < 1770;){
 													vTaskDelay(1/portTICK_RATE_MS);
 							}
 							Motor_Stop();
