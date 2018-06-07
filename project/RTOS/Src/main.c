@@ -347,9 +347,9 @@ void IR_Sensor(){
       //printf("\r\nIR sensor Right = %d", uhADCxRight);
 		 
 		 
-		 if(uhADCxLeft >= 950){
+		 if(uhADCxLeft >= 1000){
 			 										result = LeftIR;
-		 } else if(uhADCxRight >= 950){
+		 } else if(uhADCxRight >= 1000){
 			 										result = RightIR;
 		 }
        osDelay(10);
