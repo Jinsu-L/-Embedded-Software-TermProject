@@ -175,7 +175,6 @@ PUTCHAR_PROTOTYPE
  void turnLeft(int value, int flag){
 							Motor_Stop();
 							osDelay(100);
-	 
 							Motor_Left();
 	            for(motorInterrupt1 = 1; motorInterrupt1 < value;){
 													vTaskDelay(1/portTICK_RATE_MS);
@@ -258,12 +257,17 @@ void Front_Detect_obstacle(){
 											result=LEFT;
 										//
 										}else if(direction==LEFT){
-											/*if(uwDiffCapture3/58 <30){
+											 if(uwDiffCapture1/58>=uwDiffCapture3/58){
+											result=RIGHT;
+										}else if(uwDiffCapture3/58>=uwDiffCapture1/58){
+											result=LEFT;
+										}/*
+											if(uwDiffCapture3/58 <30){
 											result=LEFT;
 											forward=0;
-										}else{*/
+										}else{
 											result=RIGHT;
-										//}
+										}*/
 										}else if(uwDiffCapture1/58>=uwDiffCapture3/58){
 											result=RIGHT;
 										}else if(uwDiffCapture3/58>=uwDiffCapture1/58){
@@ -322,7 +326,7 @@ void Motor_control(){
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
-													forward=0;
+													//forward=0;
 													//printf("%d\n",forward);
 						}
 
