@@ -245,19 +245,19 @@ void Front_Detect_obstacle(){
                   if(uwDiffCapture1/58 < 30 && uwDiffCapture3/58 < 30){
 										result=BACK;
 									}else if(direction==RIGHT){
-										if(uwDiffCapture1/58 <30){
+										/*if(uwDiffCapture1/58 <30){
 											result=RIGHT;
 											forward=0;
-										}else{
+										}else{*/
 											result=LEFT;
-										}
+										//}
 										}else if(direction==LEFT){
-											if(uwDiffCapture3/58 <30){
+											/*if(uwDiffCapture3/58 <30){
 											result=LEFT;
 											forward=0;
-										}else{
+										}else{*/
 											result=RIGHT;
-										}
+										//}
 										}else if(uwDiffCapture1/58>=uwDiffCapture3/58){
 											result=RIGHT;
 										}else if(uwDiffCapture3/58>=uwDiffCapture1/58){
@@ -287,20 +287,20 @@ void Motor_control(){
 													Motor_Forward();	
 						}else if(result == LeftIR) {
 													Motor_Stop();
-						 							turnRight(174,False);
-						 							Motor_Stop();
-													result =FRONT;
-													Motor_Forward();
-						}else if(result == RightIR) {
-													Motor_Stop();
-						 							turnLeft(186,False);
-						 							Motor_Stop();
-													result =FRONT;
-													Motor_Forward();	
-						}else if(result ==LeftS){
-													Motor_Stop();
-						 							turnRight(146,False);
-						 							Motor_Stop();
+												turnRight(203,False);
+												Motor_Stop();
+												result =FRONT;
+												Motor_Forward();
+					}else if(result == RightIR) {
+												Motor_Stop();
+												turnLeft(217,False);
+												Motor_Stop();
+												result =FRONT;
+												Motor_Forward();	
+					}else if(result ==LeftS){
+												Motor_Stop();
+												turnRight(146,False);
+												Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
 						}else if(result == RightS) {
@@ -341,9 +341,9 @@ void IR_Sensor(){
       //printf("\r\nIR sensor Right = %d", uhADCxRight);
 		 
 		 
-		 if(uhADCxLeft >= 1000){
+		 if(uhADCxLeft >= 950){
 			 										result = LeftIR;
-		 } else if(uhADCxRight >= 1000){
+		 } else if(uhADCxRight >= 9500){
 			 										result = RightIR;
 		 }
        osDelay(10);
