@@ -305,7 +305,7 @@ void Motor_control(){
 													Motor_Forward();
 						}else if(result == RightS) {
 													Motor_Stop();
-						 							turnLeft(176,False);
+						 							turnLeft(186,False);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
