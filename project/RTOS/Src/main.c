@@ -293,25 +293,25 @@ void Motor_control(){
 													Motor_Forward();	
 						}else if(result == LeftIR) {
 													Motor_Stop();
-												turnRight(203,False);
+												turnRight(49,False);
 												Motor_Stop();
 												result =FRONT;
 												Motor_Forward();
 					}else if(result == RightIR) {
 												Motor_Stop();
-												turnLeft(217,False);
+												turnLeft(51,False);
 												Motor_Stop();
 												result =FRONT;
 												Motor_Forward();	
 					}else if(result ==LeftS){
 												Motor_Stop();
-												turnRight(174,False);
+												turnRight(29,False);
 												Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
 						}else if(result == RightS) {
 													Motor_Stop();
-						 							turnLeft(186,False);
+						 							turnLeft(31,False);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
