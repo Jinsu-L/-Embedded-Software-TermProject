@@ -28,135 +28,64 @@ Project File Date:  06/03/2018
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'PWM(Motor)'
 compiling ts3510.c...
-compiling stmpe1600.c...
 compiling stmpe811.c...
+compiling stmpe1600.c...
 compiling system_stm32f4xx.c...
 compiling stm324x9i_eval_io.c...
-compiling stm32f4xx_hal.c...
-compiling stm32f4xx_hal_cortex.c...
 compiling stm32f4xx_hal_dma_ex.c...
+compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal.c...
 compiling stm324x9i_eval.c...
 compiling stm32f4xx_hal_sram.c...
+compiling stm32f4xx_hal_pwr_ex.c...
 compiling stm32f4xx_hal_gpio.c...
 compiling stm32f4xx_hal_rcc.c...
-compiling stm32f4xx_hal_pwr_ex.c...
 compiling stm32f4xx_hal_i2c.c...
 compiling stm32f4xx_hal_tim.c...
 compiling stm32f4xx_ll_fmc.c...
-compiling stm32f4xx_hal_tim_ex.c...
-compiling stm32f4xx_hal_adc.c...
+compiling stm32f4xx_hal_adc_ex.c...
 compiling stm32f4xx_hal_dma.c...
-assembling startup_stm32f429xx.s...
+compiling stm32f4xx_hal_adc.c...
+compiling stm32f4xx_hal_tim_ex.c...
 compiling stm32f4xx_hal_uart.c...
+assembling startup_stm32f429xx.s...
 compiling stm32f4xx_ll_usb.c...
 compiling list.c...
-compiling stm32f4xx_hal_adc_ex.c...
-compiling queue.c...
 compiling timers.c...
+compiling queue.c...
 compiling tasks.c...
 compiling heap_4.c...
-compiling main.c...
-..\Src\main.c(276): error:  #65: expected a ";"
-  void Motor_control(){
-..\Src\main.c(297): warning:  #12-D: parsing restarts here after previous syntax error
-  												turnRight(203,
-alse);
-..\Src\main.c(298): warning:  #111-D: statement is unreachable
-  												Motor_Stop();
-..\Src\main.c(301): error:  #169: expected a declaration
-  					}else if(result == RightIR) {
-..\Src\main.c(356): warning:  #12-D: parsing restarts here after previous syntax error
-         osDelay(10);
-..\Src\main.c(357): error:  #169: expected a declaration
-     }
-..\Src\main.c(385): warning:  #12-D: parsing restarts here after previous syntax error
-     uwPrescalerValue = (SystemCoreClock/2)/1000000;
-..\Src\main.c(389): error:  #18: expected a ")"
-     
-_GPIOB_CLK_ENABLE();
-..\Src\main.c(389): error:  #79: expected a type specifier
-     
-_GPIOB_CLK_ENABLE();
-..\Src\main.c(389): error:  #18: expected a ")"
-     
-_GPIOB_CLK_ENABLE();
-..\Src\main.c(389): error:  #260-D: explicit type is missing ("int" assumed)
-     
-_GPIOB_CLK_ENABLE();
-..\Src\main.c(389): error:  #101: "RCC_TypeDef" has already been declared in the current scope
-     
-_GPIOB_CLK_ENABLE();
-..\Src\main.c(391): error:  #77-D: this declaration has no storage class or type specifier
-     GPIO_InitStruct.Pin = GPIO_PIN_2;
-..\Src\main.c(391): error:  #65: expected a ";"
-     GPIO_InitStruct.Pin = GPIO_PIN_2;
-..\Src\main.c(392): error:  #77-D: this declaration has no storage class or type specifier
-     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-..\Src\main.c(392): error:  #65: expected a ";"
-     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-..\Src\main.c(393): error:  #77-D: this declaration has no storage class or type specifier
-     GPIO_InitStruct.Pull = GPIO_NOPULL;
-..\Src\main.c(393): error:  #65: expected a ";"
-     GPIO_InitStruct.Pull = GPIO_NOPULL;
-..\Src\main.c(394): error:  #77-D: this declaration has no storage class or type specifier
-     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-..\Src\main.c(394): error:  #65: expected a ";"
-     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-..\Src\main.c(396): error:  #79: expected a type specifier
-     HAL_GPIO_Init(
-PIOB, &GPIO_InitStruct);
-..\Src\main.c(396): error:  #79: expected a type specifier
-     HAL_GPIO_Init(
-PIOB, &GPIO_InitStruct);
-..\Src\main.c(396): error:  #260-D: explicit type is missing ("int" assumed)
-     HAL_GPIO_Init(
-PIOB, &GPIO_InitStruct);
-..\Src\main.c(396): error:  #147: declaration is incompatible with "void HAL_GPIO_Init(GPIO_TypeDef *, GPIO_InitTypeDef *)" (declared at line 253 of "..\..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h")
-     HAL_GPIO_Init(
-PIOB, &GPIO_InitStruct);
-..\Src\main.c(398): error:  #79: expected a type specifier
-     HAL_GPIO_WritePin(
-PIOB, GPIO_PIN_2, GPIO_PIN_SET); // MC_EN(PB2) ???? ?ü¿? 
-..\Src\main.c(398): error:  #79: expected a type specifier
-     HAL_GPIO_WritePin(
-PIOB, 
-PIO_PIN_2, GPIO_PIN_SET); // MC_EN(PB2) ???? ?ü¿? 
-..\Src\main.c(398): error:  #757: constant "GPIO_PIN_SET" is not a type name
-     HAL_GPIO_WritePin(
-PIOB, 
-PIO_PIN_2, GPIO_PIN_SET); // MC_EN(PB2) ???? ?ü¿? 
-..\Src\main.c(398): error:  #260-D: explicit type is missing ("int" assumed)
-     HAL_GPIO_WritePin(
-PIOB, 
-PIO_PIN_2, GPIO_PIN_SET); // MC_EN(PB2) ???? ?ü¿? 
-..\Src\main.c(398): error:  #147: declaration is incompatible with "void HAL_GPIO_WritePin(GPIO_TypeDef *, uint16_t, GPIO_PinState)" (declared at line 258 of "..\..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h")
-     HAL_GPIO_WritePin(
-PIOB, 
-PIO_PIN_2, GPIO_PIN_SET); // MC_EN(PB2) ???? ?ü¿? 
-..\Src\main.c(400): error:  #77-D: this declaration has no storage class or type specifier
-     sConfig1.OCMode     = TIM_OCMODE_PWM1;
-..\Src\main.c(400): error:  #147: declaration is incompatible with "TIM_OC_InitTypeDef sConfig1" (declared at line 87)
-     sConfig1.OCMode     = TIM_OCMODE_PWM1;
-..\Src\main.c(400): error:  #65: expected a ";"
-     sConfig1.OCMode     = TIM_OCMODE_PWM1;
-..\Src\main.c(401): error:  #77-D: this declaration has no storage class or type specifier
-     sConfig1.OCPolarity = TIM_OCPOLARITY_HIGH;
-..\Src\main.c(401): error:  #147: declaration is incompatible with "TIM_OC_InitTypeDef sConfig1" (declared at line 400)
-     sConfig1.OCPolarity = TIM_OCPOLARITY_HIGH;
-..\Src\main.c: 4 warnings, 30 errors
 compiling cmsis_os.c...
-compiling stm32f4xx_it.c...
 compiling stm32f4xx_hal_msp.c...
+compiling stm32f4xx_it.c...
 compiling port.c...
-".\output\PWM(Motor).axf" - 30 Error(s), 4 Warning(s).
+compiling main.c...
+..\Src\main.c(571): warning:  #167-D: argument of type "void (*)()" is incompatible with parameter of type "pdTASK_CODE"
+  	 
+TaskCreate( Front_Detect_obstacle, "Front_obstacle", 1000, NULL, 2, NULL);
+..\Src\main.c(572): warning:  #167-D: argument of type "void (*)()" is incompatible with parameter of type "pdTASK_CODE"
+  	 
+TaskCreate( Side_Detect_obstacle, "Side_obstacle", 1000, NULL, 2, NULL);
+..\Src\main.c(573): warning:  #167-D: argument of type "void (*)()" is incompatible with parameter of type "pdTASK_CODE"
+  	 
+TaskCreate( IR_Sensor, "IR", 1000, NULL, 2, NULL);
+..\Src\main.c(574): warning:  #167-D: argument of type "void (*)()" is incompatible with parameter of type "pdTASK_CODE"
+  	 
+TaskCreate( Motor_control, "motor", 1000, NULL, 2, NULL);
+..\Src\main.c(931): warning:  #1-D: last line of file ends without a newline
+  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+..\Src\main.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=17896 RO-data=500 RW-data=248 ZI-data=27832  
+FromELF: creating hex file...
+".\output\PWM(Motor).axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\dongha\Desktop\-Embedded-Software-TermProject\project\RTOS\MDK-ARM\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.4.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Target not created.
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>
