@@ -252,7 +252,11 @@ void Front_Detect_obstacle(){
 											result=LEFT;
 										//
 										}else if(direction==LEFT){
-											 if(uwDiffCapture3/58>=30){
+											if(forward==1){
+												forward=0;
+												result=RIGHT;
+											}
+											 else if(uwDiffCapture3/58>=30){
 												 result=LEFT;
 											 }
 												else{
