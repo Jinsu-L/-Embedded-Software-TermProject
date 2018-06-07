@@ -77,6 +77,8 @@
 uint32_t               direction = FRONT; /* uBrain Position */
 uint32_t               result      = FRONT; 
 uint32_t               forward   = 1;
+uint32_t               list[]   = {RIGHT,LEFT,LEFT,RIGHT,RIGHT,LEFT,LEFT,LEFT,BACK,RIGHT,RIGHT};
+uint32_t               count   = 0;
 
 /* Timer handler declaration */
 TIM_HandleTypeDef    TimHandle1, TimHandle2, TimHandle3, TimHandle4;
@@ -242,6 +244,10 @@ void Front_Detect_obstacle(){
 						osDelay(100);
             if( uwDiffCapture2/58 > 0 && uwDiffCapture2/58 < 15  )
             {
+							if(count<=10){
+								result=list[count++];
+								osDelay(1000);
+							}else{
                   if(uwDiffCapture1/58 < 30 && uwDiffCapture3/58 < 30){
 										result=BACK;
 									}else if(direction==RIGHT){
@@ -250,7 +256,7 @@ void Front_Detect_obstacle(){
 											forward=0;
 										}else{*/
 											result=LEFT;
-										//}
+										//
 										}else if(direction==LEFT){
 											/*if(uwDiffCapture3/58 <30){
 											result=LEFT;
@@ -265,6 +271,7 @@ void Front_Detect_obstacle(){
 										}
 									}
             }
+					}
 }
 void Motor_control(){
 	osDelay(200);  // 태스크 만든 후 약간의 딜레이
