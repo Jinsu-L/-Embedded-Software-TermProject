@@ -245,25 +245,14 @@ void Front_Detect_obstacle(){
                   if(uwDiffCapture1/58 < 30 && uwDiffCapture3/58 < 30){
 										result=BACK;
 									}else if(direction==RIGHT){
-										/*if(uwDiffCapture1/58 <30){
-											result=RIGHT;
-											forward=0;
-										}else{*/
 											result=LEFT;
-										//
 										}else if(direction==LEFT){
 											if(uwDiffCapture3/58>=30){
 												 result=LEFT;
 											 }
 												else{
 											result=RIGHT;
-										}/*
-											if(uwDiffCapture3/58 <30){
-											result=LEFT;
-											forward=0;
-										}else{
-											result=RIGHT;
-										}*/
+										  }
 										}else if(uwDiffCapture1/58>=uwDiffCapture3/58){
 											result=RIGHT;
 										}else if(uwDiffCapture3/58>=uwDiffCapture1/58){
@@ -305,13 +294,13 @@ void Motor_control(){
 												Motor_Forward();	
 					}else if(result ==LeftS){
 												Motor_Stop();
-												turnRight(29,False);
+												turnRight(144,False);
 												Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
 						}else if(result == RightS) {
 													Motor_Stop();
-						 							turnLeft(31,False);
+						 							turnLeft(156,False);
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();	
@@ -321,10 +310,10 @@ void Motor_control(){
 						 							Motor_Stop();
 													result =FRONT;
 													Motor_Forward();
-													//forward=0;
+													forward=0;
 													//printf("%d\n",forward);
 						}
-
+							osDelay(10);
     }
    
 }
@@ -349,7 +338,7 @@ void IR_Sensor(){
 		 
 		 if(uhADCxLeft >= 1000){
 			 										result = LeftIR;
-		 } else if(uhADCxRight >= 1000){
+		 } else if(uhADCxRight >= 1180){
 			 										result = RightIR;
 		 }
        osDelay(10);
